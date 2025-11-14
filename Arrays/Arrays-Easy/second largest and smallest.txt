@@ -1,0 +1,92 @@
+// better approach
+import java.util.Arrays;
+import java.util.Scanner;
+class SecondSmallestLargestDynamic {
+    static void getElements(int[] arr, int n) {
+	if(n==0 || n==1) {
+		System.out.print(-1);
+		System.out.print(" ");
+		System.out.print(-1);
+		System.out.print("\n");
+	}
+	int sm=Integer.MAX_VALUE;
+	int secSm=Integer.MAX_VALUE;
+	int l=Integer.MIN_VALUE;
+	int sl=Integer.MIN_VALUE;
+	int i;
+	for(i=0; i<n; i++) {
+		sm=Math.min(small,arr[i]);
+		l=Math.max(large,arr[i]);
+	}
+	for(i=0; i<n; i++) {
+		if(arr[i]<secSm && arr[i]!=sm) {
+			secSm=arr[i];
+		}
+		if(arr[i]>sl && arr[i]!=l) {
+			sl=arr[i];
+		}
+	}
+	System.out.println("Second smallest is "+secSm);
+	System.out.println("Second largest is "+sl);
+}
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for(int i=0; i<n; i++) {
+            arr[i]=sc.nextInt();
+        }
+        getElements(arr, n);
+        sc.close();
+    }
+}
+// optimal approach
+import java.io.*;
+class Test
+{
+static int secondSmallest(int[] arr, int n) {
+	if (n < 2) return -1;
+	int sm=Integer.MAX_VALUE;
+	int secsm=Integer.MAX_VALUE;
+	int i;
+	for(i=0; i<n; i++) {
+	   if (arr[i]<sm) {
+		  secsm=sm;
+		  sm=arr[i];
+	   }
+	   else if(arr[i]<secsm && arr[i]!=sm) {
+		  secsm=arr[i];
+	   }
+	}
+   return secsm;
+}
+static int secondLargest(int[] arr, int n) {
+	if(n<2) return -1;
+	int l=Integer.MIN_VALUE;
+	int secl=Integer.MIN_VALUE;
+	int i;
+	for (i=0; i<n; i++) {
+		if(arr[i]>l) {
+			secl=large;
+			l=arr[i];
+		}
+
+		else if(arr[i]>secl && arr[i]!=l) {
+			secl=arr[i];
+		}
+	}
+	return secl;
+}
+public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        int[] arr=new int[n];
+        for(int i=0; i<n; i++) {
+            arr[i]=sc.nextInt();
+        }
+        int sS=secondSmallest(arr, n);
+	int sL=secondLargest(arr, n);
+	System.out.println("Second smallest is "+sS);
+	System.out.println("Second largest is "+sL);
+    }
+}

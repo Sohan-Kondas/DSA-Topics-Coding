@@ -1,0 +1,50 @@
+Merge Overlapping Sub-Intervals:-
+
+Approach:
+The steps are as follows:
+
+First, we will group the closer intervals by sorting the given array of intervals(if it is not already sorted).
+After that, we will start traversing the array using a loop(say i) and insert the first element into our answer list(as the answer list is empty).
+Now, while traversing we will face two different cases:
+Case 1: If the current interval can be merged with the last inserted interval of the answer list:
+In this case, we will update the end of the last inserted interval with the maximum(current interval’s end, last inserted interval’s end) and continue moving afterward. 
+
+Case 2: If the current interval cannot be merged with the last inserted interval of the answer list:
+In this case, we will insert the current interval in the answer array as it is. And after this insertion, the last inserted interval of the answer list will obviously be updated to the current interval.
+Thus the answer list will be updated with the merged intervals and finally, we will return the answer list.
+
+Intuition: Since we have sorted the intervals, the intervals which will be merging are bound to be adjacent. We kept on merging simultaneously as we were traversing through the array and when the element was non-overlapping we simply inserted the element in our answer list.
+
+Code:-
+
+import java.util.*;
+class Solution {
+    public static List<int[]> mergeOverlappingIntervals(int[][] intervals) {
+        // Step 1: Sort intervals by starting time
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+        List<int[]> merged=new ArrayList<>();
+
+        for(int[] interval : intervals) {
+            // Case 1: merged list is empty OR no overlap
+            if (merged.isEmpty() || interval[0] > merged.get(merged.size() - 1)[1]) {
+                merged.add(interval);
+            }
+            // Case 2: overlap → merge by updating the end
+            else {
+                merged.get(merged.size() - 1)[1]=Math.max(merged.get(merged.size() - 1)[1], interval[1]);
+            }
+        }
+        return merged;
+    }
+
+    public static void main(String[] args) {
+        int[][] arr={{1, 3}, {8, 10}, {2, 6}, {15, 18}};
+        List<int[]> res=mergeOverlappingIntervals(arr);
+
+        System.out.println("The merged intervals are:");
+        for(int[] interval : res) {
+            System.out.println(Arrays.toString(interval));
+        }
+    }
+}

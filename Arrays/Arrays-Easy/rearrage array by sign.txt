@@ -1,0 +1,24 @@
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        int n=nums.length;
+        List<Integer> pos=new ArrayList<>();
+        List<Integer> neg=new ArrayList<>();
+        for (int num : nums) {
+            if(num>=0) pos.add(num);
+            else neg.add(num);
+        }
+        int posIdx=0, negIdx=0, arrIdx=0;
+        int[] res=new int[n];
+        while(posIdx<pos.size() && negIdx<neg.size()) {
+            res[arrIdx++]=pos.get(posIdx++);
+            res[arrIdx++]=neg.get(negIdx++);
+        }
+        while(posIdx<pos.size()) {
+            res[arrIdx++]=pos.get(posIdx++);
+        }
+        while(negIdx<neg.size()) {
+            res[arrIdx++]=neg.get(negIdx++);
+        }
+        return res;
+    }
+}

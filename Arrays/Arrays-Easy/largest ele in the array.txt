@@ -1,0 +1,29 @@
+import java.util.*;
+public class FindLargestElementDynamic {
+    public static void main(String args[]) {
+        Scanner sc=new Scanner(System.in);
+        // First array
+        int n1=sc.nextInt();
+        int arr1[]=new int[n1];
+        for(int i=0; i<n1; i++) {
+            arr1[i]=sc.nextInt();
+        }
+        System.out.println("The Largest element in the array is: "+findLargestElement(arr1));
+        // Second array
+        int n2=sc.nextInt();
+        int arr2[]=new int[n2];
+        for(int i=0; i<n2; i++) {
+            arr2[i]=sc.nextInt();
+        }
+        System.out.println("The Largest element in the array is: "+findLargestElement(arr2));
+    }
+    static int findLargestElement(int arr[]) {
+        int max=arr[0];
+        for(int i=0; i<arr.length; i++) {
+            if(arr[i]>max) {
+                max=arr[i];
+            }
+        }
+        return max;
+    }
+}

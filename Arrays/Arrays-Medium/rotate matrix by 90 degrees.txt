@@ -1,0 +1,44 @@
+Algorithm:-
+By observation, we see that the first column of the original matrix is the reverse of the first row of the rotated matrix, so that’s why we transpose the matrix and then reverse each row, and since we are making changes in the matrix itself space complexity gets reduced to O(1).
+Approach:
+Step 1: Transpose the matrix. (changing columns->rows and rows->columns)
+Step 2: Reverse each row of the matrix.
+
+import java.util.*;
+class Solution {
+    static void rotate(int[][] matrix) {
+        for(int i=0; i<matrix.length; i++) {
+            for(int j=i; j<matrix[0].length; j++) {
+                int temp=0;
+                temp=matrix[i][j];
+                matrix[i][j]=matrix[j][i];
+                matrix[j][i]=temp;
+            }
+        }
+        for(int i=0; i<matrix.length; i++) {
+            for(int j=0; j<matrix.length/2; j++) {
+                int temp=0;
+                temp=matrix[i][j];
+		matrix[i][j]=matrix[i][matrix.length-1-j];
+                matrix[i][matrix.length-1-j]=temp;
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[][] arr=new int[n][n];
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                arr[i][j] = sc.nextInt();
+	    }
+	}
+        rotate(arr);
+        for(int i=0; i<n; i++) {
+            for(int j=0; j<n; j++) {
+                System.out.print(arr[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+}

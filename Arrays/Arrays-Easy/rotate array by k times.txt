@@ -1,0 +1,28 @@
+import java.util.*;
+class Solution {
+  static void Reverse(int[] arr, int start, int end) {
+    while(start<=end) {
+      int temp=arr[start];
+      arr[start]=arr[end];
+      arr[end]=temp;
+      start++;
+      end--;
+    }
+  }
+  static void Rotateeletoright(int[] arr, int n, int k) {
+    Reverse(arr, 0, n-k-1);
+    Reverse(arr, n-k, n-1);
+    Reverse(arr, 0, n-1);
+  }
+  public static void main(String args[]) {
+    Scanner sc=new Scanner(System.in);
+    int n=sc.nextInt();
+    int[] arr=new int[n];
+    int k=sc.nextInt();
+    for(int i=0; i<n; i++) arr[i]=sc.nextInt();
+    Rotateeletoright(arr, n, k);
+    System.out.print("After Rotating the k elements to right:");
+    for(int i=0; i<n; i++) System.out.print(arr[i]+" ");
+    System.out.println();
+  }
+}

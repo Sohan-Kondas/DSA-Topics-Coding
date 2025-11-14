@@ -1,0 +1,39 @@
+The process will look like the following:
+
+
+Among the 3 pointers, 1 will be fixed and 2 will be moving. In each iteration, we will check if the sum i.e.arr[i]+arr[j]+arr[k] is equal to the target i.e. 0. 
+
+If the sum is greater, then we need lesser elements and so we will decrease the value of k(i.e. k--). 
+If the sum is lesser than the target, we need a bigger value and so we will increase the value of j (i.e. j++). 
+If the sum is equal to the target, we will simply insert the triplet i.e. arr[i], arr[j], arr[k], into our answer and move the pointers j and k skipping the duplicate elements.
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        int n=nums.length;
+        List<List<Integer>> ans=new ArrayList<>();
+        Arrays.sort(nums);
+        for(int i=0; i<n; i++) {
+            //remove duplicates:
+            if(i!=0 && nums[i]==nums[i-1]) continue;
+            int j=i+1;
+            int k=n-1;
+            while(j<k) {
+                int sum=nums[i]+nums[j]+nums[k];
+                if(sum<0) {
+                    j++;
+                } else if(sum>0) {
+                    k--;
+                } else {
+                    List<Integer> temp=Arrays.asList(nums[i], nums[j], nums[k]);
+                    ans.add(temp);
+                    j++;
+                    k--;
+                    //skip the duplicates:
+                    while(j<k && nums[j]==nums[j-1]) j++;
+                    while(j<k && nums[k]==nums[k+1]) k--;
+                }
+            }
+        }
+        return ans;
+    }
+}
